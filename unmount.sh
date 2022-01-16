@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 function rclone_pids {
-    ps -aux | pgrep "rclone mount" | awk '{print $2}'
+    # ps -aux | grep -v grep | grep "rclone mount" | awk '{print $2}'
+    ps -aux | pgrep -f "rclone mount"
 }
 
 function rclone_mount_paths {
