@@ -1,0 +1,26 @@
+# Byte-compiled
+__pycache__/
+*.py[c]
+
+# log
+*.log
+
+# sqlite
+*.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+venv/
+
+# mkdocs documentation
+site/
+
+# mypy
+.mypy_cache/
+
+# vscode remote
+# .devcontainer
+
+test
