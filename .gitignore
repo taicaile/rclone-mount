@@ -24,3 +24,4 @@ site/
 # .devcontainer
 
 test
+logs
