@@ -99,9 +99,17 @@ while read -r REMOTE; do
     if is_mount "$MOUNTPOINT"; then
         echo "$MOUNTPOINT is already mounted"
     else
+        # rclone mount
+        # --attr-timeout Time for which file/directory attributes are cached (default 1s)
         rclone mount "$REMOTE" "$MOUNTPOINT" \
-            --config /home/li/.config/rclone/rclone.conf \
+            --config ~/.config/rclone/rclone.conf \
+            --attr-timeout 1s \
+            --dir-cache-time 5m0s \
             --vfs-cache-mode full \
+            --vfs-cache-max-age 1h0m0s \
+            --vfs-cache-poll-interval 1m0s \
+            --vfs-write-back 5s \
+            --write-back-cache \
             --log-file "$DRIVES_LOG_DIR/$REMOTE_NAME.log" \
             --cache-dir "$DRIVES_CACHE_DIR" \
             --daemon
