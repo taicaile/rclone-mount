@@ -99,9 +99,8 @@ while read -r REMOTE; do
     if is_mount "$MOUNTPOINT"; then
         echo "$MOUNTPOINT is already mounted"
     else
-        # rclone mount
-        # --attr-timeout Time for which file/directory attributes are cached (default 1s)
-        rclone mount "$REMOTE" "$MOUNTPOINT" \
+        echo "Prepare to mount remote:$REMOTE under directory:$MOUNTPOINT"
+        if rclone mount "$REMOTE" "$MOUNTPOINT" \
             --config ~/.config/rclone/rclone.conf \
             --attr-timeout 1s \
             --dir-cache-time 5m0s \
@@ -112,8 +111,13 @@ while read -r REMOTE; do
             --write-back-cache \
             --log-file "$DRIVES_LOG_DIR/$REMOTE_NAME.log" \
             --cache-dir "$DRIVES_CACHE_DIR" \
-            --daemon
-        echo "$REMOTE is mounted at: $MOUNTPOINT"
+            --daemon; then
+            echo "$REMOTE is mounted at: $MOUNTPOINT"
+        else
+            echo "$REMOTE mount failed. Perform test now"
+            rclone lsd "$REMOTE" -vv
+            exit 1
+        fi
     fi
 done <<EOF
 $(rclone listremotes)
