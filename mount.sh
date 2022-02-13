@@ -86,6 +86,12 @@ for path in "$DRIVES_LOG_DIR" "$DRIVES_CACHE_DIR" "$DRIVES_MOUNT_DIR"; do
     create_dir "$path"
 done
 
+# wait internet on
+while ! wget -q --spider https://google.com; do
+    echo "Waiting for internet online..."
+    sleep 5
+done
+
 while read -r REMOTE; do
     REMOTE_NAME="${REMOTE%?}"
     MOUNTPOINT="$DRIVES_MOUNT_DIR/$REMOTE_NAME"
