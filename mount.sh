@@ -111,7 +111,7 @@ while read -r REMOTE; do
             --attr-timeout 1s \
             --dir-cache-time 5m0s \
             --vfs-cache-mode full \
-            --vfs-cache-max-age 48h0m0s \
+            --vfs-cache-max-age 480h0m0s \
             --vfs-cache-poll-interval 1m0s \
             --vfs-write-back 5s \
             --write-back-cache \
